@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,6 +48,7 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
     EditText quantity;
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
+    int morn=0,afte=0,even=0,nigh=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,10 +85,16 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                             once.setVisibility(View.VISIBLE);break;
                     case 3: thrice.setVisibility(View.VISIBLE);
                              twice.setVisibility(View.VISIBLE);
+                             once.setVisibility(View.VISIBLE);
+                            quad.setVisibility(View.GONE);break;
+                    case 2: quad.setVisibility(View.GONE);
+                            thrice.setVisibility(View.GONE);
+                            twice.setVisibility(View.VISIBLE);
                              once.setVisibility(View.VISIBLE);break;
-                    case 2: twice.setVisibility(View.VISIBLE);
-                             once.setVisibility(View.VISIBLE);break;
-                    case 1: once.setVisibility(View.VISIBLE);break;
+                    case 1: quad.setVisibility(View.GONE);
+                        thrice.setVisibility(View.GONE);
+                        twice.setVisibility(View.GONE);
+                        once.setVisibility(View.VISIBLE);break;
                 }
 
             }
@@ -113,6 +121,16 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                                 once.setText(hourOfDay + ":" + minute);
+                                if(hourOfDay>=12 && hourOfDay<16)
+                                    afte=1;
+                                else if(hourOfDay>=16 && hourOfDay<19)
+                                    even=1;
+                                else if(hourOfDay>=19 && hourOfDay<24)
+                                    nigh=1;
+                                else
+                                    morn=1;
+                                Toast.makeText(MedicineActivity.this, " "+morn+","+afte+","+even+","+nigh+".", Toast.LENGTH_SHORT).show();
+
                             }
                         }, hour, minute, false);
                         timePickerDialog.show();
@@ -135,6 +153,14 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                         twice.setText(hourOfDay + ":" + minute);
+                        if(hourOfDay>=12 && hourOfDay<16)
+                            afte=1;
+                        else if(hourOfDay>=16 && hourOfDay<19)
+                            even=1;
+                        else if(hourOfDay>=19 && hourOfDay<24)
+                            nigh=1;
+                        else
+                            morn=1;
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -157,6 +183,14 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                         thrice.setText(hourOfDay + ":" + minute);
+                        if(hourOfDay>=12 && hourOfDay<16)
+                            afte=1;
+                        else if(hourOfDay>=16 && hourOfDay<19)
+                            even=1;
+                        else if(hourOfDay>=19 && hourOfDay<24)
+                            nigh=1;
+                        else
+                            morn=1;
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -179,6 +213,15 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                         quad.setText(hourOfDay + ":" + minute);
+                        if(hourOfDay>=12 && hourOfDay<16)
+                            afte=1;
+                        else if(hourOfDay>=16 && hourOfDay<19)
+                            even=1;
+                        else if(hourOfDay>=19 && hourOfDay<24)
+                            nigh=1;
+                        else
+                            morn=1;
+                        Toast.makeText(MedicineActivity.this, " "+morn+","+afte+","+even+","+nigh+".", Toast.LENGTH_SHORT).show();
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -189,8 +232,10 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
         save.setOnClickListener(this);
         cancel = (Button) findViewById(R.id.cancel_btn);
         cancel.setOnClickListener(this);
-        db=openOrCreateDatabase("prescriptionDB", Context.MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS prescription(name VARCHAR,quantity VARCHAR, once VARCHAR, twice VARCHAR, thrice VARCHAR, quad VARCHAR);");
+        db=openOrCreateDatabase("prescriptDB", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS prescription(name VARCHAR,quantity VARCHAR, " +
+                "once VARCHAR, twice VARCHAR, thrice VARCHAR, quad VARCHAR, morning INTEGER, afternoon INTEGER, " +
+                "evening INTEGER, dinner INTEGER);");
     }
 
     @Override
@@ -211,8 +256,9 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                 thrice.setText("-");
             if(quad.getText().toString().trim().length()==0)
                 quad.setText("-");
+
             db.execSQL("INSERT INTO prescription VALUES('"+name.getText()+"','"+quantity.getText()+
-                    "','"+once.getText()+"','"+twice.getText()+"','"+thrice.getText()+"','"+quad.getText()+"');");
+                    "','"+once.getText()+"','"+twice.getText()+"','"+thrice.getText()+"','"+quad.getText()+"','"+morn+"','"+afte+"','"+even+"','"+nigh+"');");
             showMessage("Success", "Record added");
             clearText();
         }
@@ -237,6 +283,7 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
         twice.setText("");
         thrice.setText("");
         quad.setText("");
+        morn=0;even=0;afte=0;nigh=0;
     }
 
 
