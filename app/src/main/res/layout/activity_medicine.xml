@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nikhil.rx.MedicineActivity">
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Name of Medicine"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="285dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="235dp"
+         />
+
+    <EditText
+        android:id="@+id/Once"
+        style="@android:style/Widget.DeviceDefault.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="265dp"
+        android:ems="10"
+        android:inputType="time"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/Twice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="305dp"
+        android:ems="10"
+        android:inputType="time"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/Thrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="345dp"
+        android:ems="10"
+        android:inputType="time"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/Quad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="385dp"
+        android:ems="10"
+        android:inputType="time"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="95dp"
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+    <Button
+        android:id="@+id/camera"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="310dp"
+        android:layout_marginTop="155dp"
+        android:background="@android:drawable/ic_menu_camera"
+        android:textColor="@android:color/white" />
+    <EditText
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Number of Tabs/Spoon"
+        android:inputType="numberSigned" />
+
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="150dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="460dp"
+        android:background="@color/colorPrimary"
+        android:text="Cancel"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="150dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="460dp"
+        android:background="@color/colorPrimary"
+        android:text="Save"
+        android:textColor="@android:color/white" />
+
+
+</android.support.design.widget.CoordinatorLayout>
