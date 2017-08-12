@@ -48,21 +48,19 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
     SQLiteDatabase db;
     Button save,cancel;
     EditText once,twice,thrice,quad,name,quantity;
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView1,imageView2,imageView3,imageView4;
     int hd1=-1,hd2=-1,hd3=-1,hd4=-1;
     int morn=0,afte=0,even=0,nigh=0,count=0,mypos=0;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
-
-        alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
-        alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
+          alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmMgr = (AlarmManager) getSystemService(ALARM_SERVICE);
         final String[] str = {"Number of Times", "Once a day", "Twice a day", "Thrice a day", "Four times a day"};
         final Spinner sp = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adp = new ArrayAdapter<String>(this,
@@ -155,8 +153,6 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                         final Calendar c = Calendar.getInstance();
                         int hour = c.get(Calendar.HOUR_OF_DAY);
                         int minute = c.get(Calendar.MINUTE);
-
-
                         TimePickerDialog timePickerDialog = new TimePickerDialog(MedicineActivity.this, new TimePickerDialog.OnTimeSetListener() {
 
                             @Override
@@ -164,11 +160,24 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
 
                                 once.setText(hourOfDay + ":" + minute);
                                 hd1=hourOfDay;
-                                alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
-                                        AlarmManager.INTERVAL_DAY, alarmIntent);
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(Calendar.HOUR_OF_DAY, view.getCurrentHour());
+                                calendar.set(Calendar.MINUTE, view.getCurrentMinute());
+                                long time;
+                                time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+                                if(System.currentTimeMillis()>time)
+                                {
+                                    if (calendar.AM_PM == 0)
+                                        time = time + (1000*60*60*12);
+                                    else
+                                        time = time + (1000*60*60*24);
+                                }
+                                alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time, AlarmManager.INTERVAL_DAY, alarmIntent);
+
                             }
                         }, hour, minute, false);
                         timePickerDialog.show();
+
 
                     }
                 });
@@ -189,8 +198,20 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
 
                         twice.setText(hourOfDay + ":" + minute);
                        hd2=hourOfDay;
-                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
-                                AlarmManager.INTERVAL_DAY, alarmIntent);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.HOUR_OF_DAY, view.getCurrentHour());
+                        calendar.set(Calendar.MINUTE, view.getCurrentMinute());
+                        long time;
+                        time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+                        if(System.currentTimeMillis()>time)
+                        {
+                            if (calendar.AM_PM == 0)
+                                time = time + (1000*60*60*12);
+                            else
+                                time = time + (1000*60*60*24);
+                        }
+                        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time, AlarmManager.INTERVAL_DAY, alarmIntent);
+
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -214,8 +235,20 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
 
                         thrice.setText(hourOfDay + ":" + minute);
                         hd3=hourOfDay;
-                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
-                                AlarmManager.INTERVAL_DAY, alarmIntent);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.HOUR_OF_DAY, view.getCurrentHour());
+                        calendar.set(Calendar.MINUTE, view.getCurrentMinute());
+                        long time;
+                        time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+                        if(System.currentTimeMillis()>time)
+                        {
+                            if (calendar.AM_PM == 0)
+                                time = time + (1000*60*60*12);
+                            else
+                                time = time + (1000*60*60*24);
+                        }
+                        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time, AlarmManager.INTERVAL_DAY, alarmIntent);
+
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -239,8 +272,20 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
 
                         quad.setText(hourOfDay + ":" + minute);
                         hd4=hourOfDay;
-                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
-                                AlarmManager.INTERVAL_DAY, alarmIntent);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.HOUR_OF_DAY, view.getCurrentHour());
+                        calendar.set(Calendar.MINUTE, view.getCurrentMinute());
+                        long time;
+                        time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+                        if(System.currentTimeMillis()>time)
+                        {
+                            if (calendar.AM_PM == 0)
+                                time = time + (1000*60*60*12);
+                            else
+                                time = time + (1000*60*60*24);
+                        }
+                        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time, AlarmManager.INTERVAL_DAY, alarmIntent);
+
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -277,12 +322,13 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                 quad.setText("-");
             if((hd1>=12 && hd1<16)||(hd2>=12 && hd2<16)||(hd3>=12 && hd3<16)||(hd4>=12 && hd4<16))
                 afte=1;
-            else if((hd1>=16 && hd1<19)||(hd2>=16 && hd2<19)||(hd3>=16 && hd3<19)||(hd4>=16 && hd4<19))
+            if((hd1>=16 && hd1<19)||(hd2>=16 && hd2<19)||(hd3>=16 && hd3<19)||(hd4>=16 && hd4<19))
                 even=1;
-            else if((hd1>=19 && hd1<24)||(hd2>=19 && hd2<24)||(hd3>=19 && hd3<24)||(hd4>=19 && hd4<24))
+            if((hd1>=19 && hd1<24)||(hd2>=19 && hd2<24)||(hd3>=19 && hd3<24)||(hd4>=19 && hd4<24))
                 nigh=1;
-            else
+            if((hd1>=0 && hd1<12)||(hd2>=0 && hd2<12)||(hd3>=0 && hd3<12)||(hd4>=0 && hd4<12))
                 morn=1;
+
             db.execSQL("INSERT INTO prescription VALUES('"+name.getText()+"','"+quantity.getText()+
                     "','"+once.getText()+"','"+twice.getText()+"','"+thrice.getText()+"','"+quad.getText()+"','"+mypos+"','"+morn+"','"+afte+"','"+even+"','"+nigh+"');");
             showMessage("Success", "Record added");
