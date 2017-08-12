@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import java.io.File;
@@ -24,16 +25,17 @@ public class DinnerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dinner);
-        db=openOrCreateDatabase("prescriptDB", Context.MODE_PRIVATE, null);
+        db=openOrCreateDatabase("PrescriptDB", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS prescription(name VARCHAR,quantity VARCHAR, " +
-                "once VARCHAR, twice VARCHAR, thrice VARCHAR, quad VARCHAR, morning INTEGER, afternoon INTEGER, " +
+                "once VARCHAR, twice VARCHAR, thrice VARCHAR, quad VARCHAR, imageID INTEGER, morning INTEGER, afternoon INTEGER, " +
                 "evening INTEGER, dinner INTEGER);");
         Cursor c=db.rawQuery("SELECT * FROM prescription WHERE dinner=1", null);
         if(c.getCount()==0)
         {
-            showMessage("Error", "No records found");
+            showMessage("Enjoy!", "No medicines to be taken :)");
             return;
         }
+
         int i=0;
         TextView i1= (TextView) findViewById(R.id.i1);
         TextView i2= (TextView) findViewById(R.id.i2);
@@ -47,7 +49,13 @@ public class DinnerActivity extends AppCompatActivity {
         TextView i10= (TextView) findViewById(R.id.i10);
         TextView i11= (TextView) findViewById(R.id.i11);
         TextView i12= (TextView) findViewById(R.id.i12);
-
+        ImageView j1= (ImageView) findViewById(R.id.j1);
+        ImageView j2= (ImageView) findViewById(R.id.j2);
+        ImageView j3= (ImageView) findViewById(R.id.j3);
+        ImageView j4= (ImageView) findViewById(R.id.j4);
+        ImageView j5= (ImageView) findViewById(R.id.j5);
+        ImageView j6= (ImageView) findViewById(R.id.j6);
+        //String[] mystr = new String[100];
         StringBuffer buffer=new StringBuffer();
         while(c.moveToNext())
         {
@@ -57,35 +65,66 @@ public class DinnerActivity extends AppCompatActivity {
             buffer.append("Second   : "+c.getString(3)+"\n");
             buffer.append("Third    : "+c.getString(4)+"\n");
             buffer.append("Fourth   : "+c.getString(5)+"\n\n");
+            /*
+            mystr[i]=c.getString(0) + " (" +c.getString(1)+")";
+            i++;
+            mystr[i]=c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+"!";
+            i++;
+            */
+            int j=c.getInt(6);
             switch(i)
             {
-                case 0 : i1.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                        i2.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");break;
-                case 1 : i3.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i4.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");break;
-                case 3 : i5.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i6.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");break;
-                case 4 : i7.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i8.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");break;
-                case 5 : i9.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i10.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");break;
-                case 6 : i11.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i12.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");break;
+                case 0 : {i1.setText(c.getString(0) + " (" +c.getString(1)+ ")");
+                        i2.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    switch (j)
+                    {
+                        case 1:j1.setImageResource(R.drawable.cap);break;
+                        case 2:j1.setImageResource(R.drawable.tab);break;
+                        case 3:j1.setImageResource(R.drawable.syrup);break;
+                    }break;}
+                case 1 : {i3.setText(c.getString(0) + " (" +c.getString(1)+ ")");
+                    i4.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    switch (j)
+                    {
+                        case 1:j2.setImageResource(R.drawable.cap);break;
+                        case 2:j2.setImageResource(R.drawable.tab);break;
+                        case 3:j2.setImageResource(R.drawable.syrup);break;
+                    }break;}
+                case 3 :{ i5.setText(c.getString(0) + " (" +c.getString(1)+ ")");
+                    i6.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    switch (j)
+                    {
+                        case 1:j3.setImageResource(R.drawable.cap);break;
+                        case 2:j3.setImageResource(R.drawable.tab);break;
+                        case 3:j3.setImageResource(R.drawable.syrup);break;
+                    }break;}
+                case 4 :{ i7.setText(c.getString(0) + " (" +c.getString(1)+ ")");
+                    i8.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    switch (j)
+                    {
+                        case 1:j4.setImageResource(R.drawable.cap);break;
+                        case 2:j4.setImageResource(R.drawable.tab);break;
+                        case 3:j4.setImageResource(R.drawable.syrup);break;
+                    }break;}
+                case 5 : {i9.setText(c.getString(0) + " (" +c.getString(1)+ ")");
+                    i10.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    switch (j)
+                    {
+                        case 1:j5.setImageResource(R.drawable.cap);break;
+                        case 2:j5.setImageResource(R.drawable.tab);break;
+                        case 3:j5.setImageResource(R.drawable.syrup);break;
+                    }break;}
+                case 6 : {i11.setText(c.getString(0) + " (" +c.getString(1)+ ")");
+                    i12.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    switch (j)
+                    {
+                        case 1:j6.setImageResource(R.drawable.cap);break;
+                        case 2:j6.setImageResource(R.drawable.tab);break;
+                        case 3:j6.setImageResource(R.drawable.syrup);break;
+                    }break;}
             }
             i++;
         }
-       /*
-        Button bp = (Button) findViewById(R.id.button);
-        ImageView image = (ImageView) findViewById(R.id.image1);
-        String root = Environment.getExternalStorageDirectory().getAbsolutePath();
-        File myDir = new File(root);
-        String fname = "Image-crocin.jpg";
-        File file = new File (myDir, fname);
-        if(! myDir.exists())
-            bp.setVisibility(View.GONE);
-        Bitmap bMap = BitmapFactory.decodeFile(String.valueOf(file));
-        image.setImageBitmap(bMap);
-        */
     }
 
     public void showMessage(String title,String message)

@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nikhil.rx">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,7 +39,11 @@
         <activity
             android:name=".EveningActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".DinnerActivity"></activity>
+        <activity android:name=".DinnerActivity" />
+        <activity android:name=".MedicineRemoveActivity" />
+
+        <receiver android:name=".AlarmReceiver" />
+
     </application>
 
 </manifest>

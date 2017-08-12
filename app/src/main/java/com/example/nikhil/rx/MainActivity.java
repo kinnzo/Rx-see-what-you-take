@@ -1,5 +1,7 @@
 package com.example.nikhil.rx;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -32,12 +34,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
 
     public void gotoMorning(View view)
     {
         Intent intent = new Intent (this, MorningActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoDelete(View view)
+    {
+        Intent intent = new Intent (this, MedicineRemoveActivity.class);
         startActivity(intent);
     }
 
@@ -81,7 +89,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void myfunc(View view){
-
-    }
 }

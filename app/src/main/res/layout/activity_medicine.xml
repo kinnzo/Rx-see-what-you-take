@@ -24,9 +24,17 @@
         android:layout_marginTop="235dp"
          />
 
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="285dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="90dp"
+        />
+
     <EditText
         android:id="@+id/Once"
-        style="@android:style/Widget.DeviceDefault.EditText"
+        style="?attr/editTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -66,12 +74,42 @@
         android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView1"
         android:layout_width="300dp"
         android:layout_height="120dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="95dp"
-        app:srcCompat="@android:drawable/ic_menu_report_image" />
+        android:layout_marginTop="115dp"
+        android:background="@mipmap/cap"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="115dp"
+        android:background="@mipmap/tab"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="115dp"
+        android:background="@mipmap/syrup"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="115dp"
+        android:background="@android:drawable/ic_menu_report_image"
+        android:visibility="visible" />
+
+
 
     <Button
         android:id="@+id/camera"

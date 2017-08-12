@@ -1,11 +1,14 @@
 package com.example.nikhil.rx;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -25,11 +28,15 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.example.nikhil.rx.R.id.Once;
 import static com.example.nikhil.rx.R.id.Quad;
@@ -40,27 +47,21 @@ import static com.example.nikhil.rx.R.id.save_btn;
 public class MedicineActivity extends AppCompatActivity implements View.OnClickListener {
     SQLiteDatabase db;
     Button save,cancel;
-    EditText once;
-    EditText twice;
-    EditText thrice;
-    EditText quad;
-    EditText name;
-    EditText quantity;
+    EditText once,twice,thrice,quad,name,quantity;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
     private static final int CAMERA_REQUEST = 1888;
-    private ImageView imageView;
-    int morn=0,afte=0,even=0,nigh=0;
+    private ImageView imageView1,imageView2,imageView3,imageView4;
+    int hd1=-1,hd2=-1,hd3=-1,hd4=-1;
+    int morn=0,afte=0,even=0,nigh=0,count=0,mypos=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
-        this.imageView = (ImageView)this.findViewById(R.id.imageView);
-        Button B = (Button) this.findViewById(R.id.camera);
-        B.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            }
-        });
+
+        alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         final String[] str = {"Number of Times", "Once a day", "Twice a day", "Thrice a day", "Four times a day"};
         final Spinner sp = (Spinner) findViewById(R.id.spinner);
@@ -96,7 +97,48 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                         twice.setVisibility(View.GONE);
                         once.setVisibility(View.VISIBLE);break;
                 }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
 
+        final String[] type = {"Type of Medicine", "Capsule", "Tablet", "Syrup"};
+        final Spinner sp1 = (Spinner) findViewById(R.id.spinner1);
+        ArrayAdapter<String> adpn = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, type);
+        adpn.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp1.setAdapter(adpn);
+        imageView1 = (ImageView) findViewById(R.id.imageView1);
+        imageView2 = (ImageView) findViewById(R.id.imageView2);
+        imageView3 = (ImageView) findViewById(R.id.imageView3);
+        imageView4 = (ImageView) findViewById(R.id.imageView4);
+        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+                // TODO Auto-generated method stub
+                switch(position)
+                {
+                    case 3: imageView4.setVisibility(View.GONE);
+                    imageView3.setVisibility(View.VISIBLE);
+                        imageView2.setVisibility(View.GONE);
+                        imageView1.setVisibility(View.GONE);break;
+                    case 2: imageView4.setVisibility(View.GONE);
+                        imageView3.setVisibility(View.GONE);
+                        imageView2.setVisibility(View.VISIBLE);
+                        imageView1.setVisibility(View.GONE);break;
+                    case 1: imageView4.setVisibility(View.GONE);
+                        imageView3.setVisibility(View.GONE);
+                        imageView2.setVisibility(View.GONE);
+                        imageView1.setVisibility(View.VISIBLE);break;
+                    case 0:imageView4.setVisibility(View.VISIBLE);
+                        imageView3.setVisibility(View.GONE);
+                        imageView2.setVisibility(View.GONE);
+                        imageView1.setVisibility(View.GONE);
+                }
+                mypos=position;
             }
 
             @Override
@@ -121,16 +163,9 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                                 once.setText(hourOfDay + ":" + minute);
-                                if(hourOfDay>=12 && hourOfDay<16)
-                                    afte=1;
-                                else if(hourOfDay>=16 && hourOfDay<19)
-                                    even=1;
-                                else if(hourOfDay>=19 && hourOfDay<24)
-                                    nigh=1;
-                                else
-                                    morn=1;
-                                Toast.makeText(MedicineActivity.this, " "+morn+","+afte+","+even+","+nigh+".", Toast.LENGTH_SHORT).show();
-
+                                hd1=hourOfDay;
+                                alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
+                                        AlarmManager.INTERVAL_DAY, alarmIntent);
                             }
                         }, hour, minute, false);
                         timePickerDialog.show();
@@ -153,14 +188,9 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                         twice.setText(hourOfDay + ":" + minute);
-                        if(hourOfDay>=12 && hourOfDay<16)
-                            afte=1;
-                        else if(hourOfDay>=16 && hourOfDay<19)
-                            even=1;
-                        else if(hourOfDay>=19 && hourOfDay<24)
-                            nigh=1;
-                        else
-                            morn=1;
+                       hd2=hourOfDay;
+                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
+                                AlarmManager.INTERVAL_DAY, alarmIntent);
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -183,14 +213,9 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                         thrice.setText(hourOfDay + ":" + minute);
-                        if(hourOfDay>=12 && hourOfDay<16)
-                            afte=1;
-                        else if(hourOfDay>=16 && hourOfDay<19)
-                            even=1;
-                        else if(hourOfDay>=19 && hourOfDay<24)
-                            nigh=1;
-                        else
-                            morn=1;
+                        hd3=hourOfDay;
+                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
+                                AlarmManager.INTERVAL_DAY, alarmIntent);
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -213,15 +238,9 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                         quad.setText(hourOfDay + ":" + minute);
-                        if(hourOfDay>=12 && hourOfDay<16)
-                            afte=1;
-                        else if(hourOfDay>=16 && hourOfDay<19)
-                            even=1;
-                        else if(hourOfDay>=19 && hourOfDay<24)
-                            nigh=1;
-                        else
-                            morn=1;
-                        Toast.makeText(MedicineActivity.this, " "+morn+","+afte+","+even+","+nigh+".", Toast.LENGTH_SHORT).show();
+                        hd4=hourOfDay;
+                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
+                                AlarmManager.INTERVAL_DAY, alarmIntent);
                     }
                 }, hour, minute, false);
                 timePickerDialog.show();
@@ -232,9 +251,9 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
         save.setOnClickListener(this);
         cancel = (Button) findViewById(R.id.cancel_btn);
         cancel.setOnClickListener(this);
-        db=openOrCreateDatabase("prescriptDB", Context.MODE_PRIVATE, null);
+        db=openOrCreateDatabase("PrescriptDB", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS prescription(name VARCHAR,quantity VARCHAR, " +
-                "once VARCHAR, twice VARCHAR, thrice VARCHAR, quad VARCHAR, morning INTEGER, afternoon INTEGER, " +
+                "once VARCHAR, twice VARCHAR, thrice VARCHAR, quad VARCHAR, imageID INTEGER, morning INTEGER, afternoon INTEGER, " +
                 "evening INTEGER, dinner INTEGER);");
     }
 
@@ -256,9 +275,16 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
                 thrice.setText("-");
             if(quad.getText().toString().trim().length()==0)
                 quad.setText("-");
-
+            if((hd1>=12 && hd1<16)||(hd2>=12 && hd2<16)||(hd3>=12 && hd3<16)||(hd4>=12 && hd4<16))
+                afte=1;
+            else if((hd1>=16 && hd1<19)||(hd2>=16 && hd2<19)||(hd3>=16 && hd3<19)||(hd4>=16 && hd4<19))
+                even=1;
+            else if((hd1>=19 && hd1<24)||(hd2>=19 && hd2<24)||(hd3>=19 && hd3<24)||(hd4>=19 && hd4<24))
+                nigh=1;
+            else
+                morn=1;
             db.execSQL("INSERT INTO prescription VALUES('"+name.getText()+"','"+quantity.getText()+
-                    "','"+once.getText()+"','"+twice.getText()+"','"+thrice.getText()+"','"+quad.getText()+"','"+morn+"','"+afte+"','"+even+"','"+nigh+"');");
+                    "','"+once.getText()+"','"+twice.getText()+"','"+thrice.getText()+"','"+quad.getText()+"','"+mypos+"','"+morn+"','"+afte+"','"+even+"','"+nigh+"');");
             showMessage("Success", "Record added");
             clearText();
         }
@@ -284,36 +310,7 @@ public class MedicineActivity extends AppCompatActivity implements View.OnClickL
         thrice.setText("");
         quad.setText("");
         morn=0;even=0;afte=0;nigh=0;
-    }
-
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bitmap photo;
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
-            saveImage(photo);
-        }
-    }
-
-    private void saveImage(Bitmap finalBitmap) {
-
-        String root = Environment.getExternalStorageDirectory().getAbsolutePath();
-        File myDir = new File(root + "/saved_images");
-        myDir.mkdirs();
-
-        String fname = "Image-"+ name.getText() +".jpg";
-        File file = new File (myDir, fname);
-        if (file.exists()) file.delete();
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        hd1=-1;hd2=-1;hd3=-1;hd4=-1;mypos=0;
     }
 }
 
