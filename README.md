@@ -1,8 +1,7 @@
 # Rx
 
 **Introduction**
-
-    ```
+   ```
     You might go to a doctor and get a prescription, 
     but how discernable is it? The app helps you in getting 
     a prescription that is unambiguous. It also classifies 
