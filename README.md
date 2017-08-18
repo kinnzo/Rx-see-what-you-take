@@ -2,7 +2,7 @@
 
 **Introduction**
     
-    You might go to a doctor and get a prescription, but how discernable is it? The app helps you in getting a prescription that is unambiguous. It also classifies the timings at which you have to take the medicine. 
+ You might go to a doctor and get a prescription, but how discernable is it? The app helps you in getting a prescription that is unambiguous. It also classifies the timings at which you have to take the medicine. 
   
 
 **Uses**
@@ -14,6 +14,5 @@
 **Future Scope**
  
  
- Over the long term, this app has the potential 
-  to replace the traditional system of paper based prescriptions.
+ Over the long term, this app has the potential to replace the traditional system of paper based prescriptions.
  
