@@ -3,12 +3,10 @@
     package="com.example.nikhil.rx">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -44,6 +42,7 @@
 
         <receiver android:name=".AlarmReceiver" />
 
+        <activity android:name=".ModifyTimes"></activity>
     </application>
 
 </manifest>

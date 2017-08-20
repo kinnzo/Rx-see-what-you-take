@@ -38,7 +38,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
         <Button
@@ -46,9 +46,9 @@
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="150dp"
             android:layout_height="160dp"
-            android:layout_above="@+id/dinner"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="37dp"
+            android:layout_alignTop="@+id/morning"
+            android:layout_marginEnd="18dp"
             android:background="@mipmap/after_cart"
             android:onClick="gotoAfternoon" />
 
@@ -57,9 +57,8 @@
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="150dp"
             android:layout_height="160dp"
-            android:layout_above="@+id/del"
-            android:layout_alignStart="@+id/lunch"
-            android:layout_marginBottom="75dp"
+            android:layout_alignTop="@+id/evening"
+            android:layout_toEndOf="@+id/morning"
             android:background="@mipmap/nigh_cart"
             android:onClick="gotoDinner" />
 
@@ -68,8 +67,9 @@
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="150dp"
             android:layout_height="160dp"
-            android:layout_above="@+id/dinner"
-            android:layout_marginEnd="15dp"
+            android:layout_above="@+id/evening"
+            android:layout_marginBottom="21dp"
+            android:layout_marginEnd="32dp"
             android:layout_toStartOf="@+id/lunch"
             android:background="@mipmap/morn_cart"
             android:onClick="gotoMorning" />
@@ -79,8 +79,9 @@
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="150dp"
             android:layout_height="160dp"
+            android:layout_above="@+id/del"
             android:layout_alignStart="@+id/morning"
-            android:layout_below="@+id/morning"
+            android:layout_marginBottom="22dp"
             android:background="@mipmap/even_cart"
             android:onClick="gotoEvening" />
 
@@ -88,13 +89,12 @@
             android:id="@+id/fab"
             android:layout_width="58dp"
             android:layout_height="62dp"
-            android:layout_below="@+id/lu"
-            android:layout_marginLeft="275dp"
-            android:layout_marginTop="475dp"
+            android:layout_marginStart="275dp"
+            android:layout_marginTop="490dp"
             app:backgroundTint="?attr/actionModeSplitBackground"
             app:srcCompat="@android:drawable/ic_input_add" />
 
-        <Button
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/del"
             style="?attr/buttonStyle"
             android:layout_width="wrap_content"
@@ -102,11 +102,55 @@
             android:layout_alignBottom="@+id/fab"
             android:layout_alignEnd="@+id/evening"
             android:layout_marginEnd="30dp"
-            android:background="@color/colorPrimary"
             android:onClick="gotoDelete"
-            android:text="REMOVE"
-            android:textColor="@android:color/holo_green_light" />
+            android:textColor="@android:color/holo_green_light"
+            app:backgroundTint="?attr/actionModeSplitBackground"
+            app:srcCompat="@android:drawable/ic_delete" />
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/morning"
+            android:layout_alignEnd="@+id/del"
+            android:text="Morning"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lunch"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/morning"
+            android:text="Afternoon"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/fab"
+            android:layout_below="@+id/lunch"
+            android:text="Night"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/del"
+            android:layout_below="@+id/lunch"
+            android:text="Evening"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

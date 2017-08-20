@@ -1,8 +1,10 @@
 package com.example.nikhil.rx;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,13 +18,14 @@ public class MedicineRemoveActivity extends AppCompatActivity implements View.On
     SQLiteDatabase db;
     EditText dele;
     Button bt;
+    String delete_addr="https://somemedcare.000webhostapp.com/delete_data.php?name=";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine_remove);
-        db=openOrCreateDatabase("prescriptDB", Context.MODE_PRIVATE, null);
+        db=openOrCreateDatabase("PrescriptionDB", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS prescription(name VARCHAR,quantity VARCHAR, " +
-                "once VARCHAR, twice VARCHAR, thrice VARCHAR, quad VARCHAR, morning INTEGER, afternoon INTEGER, " +
+                "mornbf INTEGER, aftebf INTEGER, evenbf INTEGER, nighbf INTEGER, imageID INTEGER, morning INTEGER, afternoon INTEGER, " +
                 "evening INTEGER, dinner INTEGER);");
         dele = (EditText) findViewById(R.id.del_name);
         bt = (Button) findViewById(delete_btn);
@@ -40,6 +43,9 @@ public class MedicineRemoveActivity extends AppCompatActivity implements View.On
             if (c.moveToFirst()) {
                 db.execSQL("DELETE FROM prescription WHERE name='" + dele.getText() + "'");
                 showMessage("Success", "Record Deleted");
+                Uri uri = Uri.parse(delete_addr+dele.getText());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 dele.setText("");
             } else {
                 showMessage("Error", "Invalid Name");

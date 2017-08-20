@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.nikhil.rx.MedicineActivity">
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,13 +16,15 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp" />
 
-    <Spinner
-        android:id="@+id/spinner"
+    <TextView
+        android:id="@+id/info"
         android:layout_width="285dp"
         android:layout_height="26dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="235dp"
-         />
+        android:layout_marginTop="245dp"
+        android:text="Default : After Food"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <Spinner
         android:id="@+id/spinner1"
@@ -32,46 +34,7 @@
         android:layout_marginTop="90dp"
         />
 
-    <EditText
-        android:id="@+id/Once"
-        style="?attr/editTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="265dp"
-        android:ems="10"
-        android:inputType="time"
-        android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/Twice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="305dp"
-        android:ems="10"
-        android:inputType="time"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/Thrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="345dp"
-        android:ems="10"
-        android:inputType="time"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/Quad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="385dp"
-        android:ems="10"
-        android:inputType="time"
-        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -111,14 +74,7 @@
 
 
 
-    <Button
-        android:id="@+id/camera"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="310dp"
-        android:layout_marginTop="155dp"
-        android:background="@android:drawable/ic_menu_camera"
-        android:textColor="@android:color/white" />
+
     <EditText
         android:id="@+id/quantity"
         android:layout_width="wrap_content"
@@ -148,6 +104,78 @@
         android:background="@color/colorPrimary"
         android:text="Save"
         android:textColor="@android:color/white" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="275dp"
+        android:text="Morning"
+        android:textOn="After Food" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="315dp"
+        android:text="Afternoon"
+        android:textOn="After Food" />
+
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="355dp"
+        android:text="Evening"
+        android:textOn="After Food" />
+
+    <Switch
+        android:id="@+id/switch4"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="395dp"
+        android:text="Night"
+        android:textOn="After Food" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="275dp"
+        android:onClick="checkState"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="315dp"
+        android:onClick="checkState"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="355dp"
+        android:onClick="checkState"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="395dp"
+        android:onClick="checkState"
+         />
 
 
 </android.support.design.widget.CoordinatorLayout>

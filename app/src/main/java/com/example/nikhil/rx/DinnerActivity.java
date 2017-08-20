@@ -25,9 +25,9 @@ public class DinnerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dinner);
-        db=openOrCreateDatabase("PrescriptDB", Context.MODE_PRIVATE, null);
+        db=openOrCreateDatabase("PrescriptionDB", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS prescription(name VARCHAR,quantity VARCHAR, " +
-                "once VARCHAR, twice VARCHAR, thrice VARCHAR, quad VARCHAR, imageID INTEGER, morning INTEGER, afternoon INTEGER, " +
+                "mornbf INTEGER, aftebf INTEGER, evenbf INTEGER, nighbf INTEGER, imageID INTEGER, morning INTEGER, afternoon INTEGER, " +
                 "evening INTEGER, dinner INTEGER);");
         Cursor c=db.rawQuery("SELECT * FROM prescription WHERE dinner=1", null);
         if(c.getCount()==0)
@@ -61,21 +61,14 @@ public class DinnerActivity extends AppCompatActivity {
         {
             buffer.append("Name     : "+c.getString(0)+"\n");
             buffer.append("Quantity : "+c.getString(1)+"\n");
-            buffer.append("First    : "+c.getString(2)+"\n");
-            buffer.append("Second   : "+c.getString(3)+"\n");
-            buffer.append("Third    : "+c.getString(4)+"\n");
-            buffer.append("Fourth   : "+c.getString(5)+"\n\n");
-            /*
-            mystr[i]=c.getString(0) + " (" +c.getString(1)+")";
-            i++;
-            mystr[i]=c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+"!";
-            i++;
-            */
             int j=c.getInt(6);
             switch(i)
             {
                 case 0 : {i1.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                        i2.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    if(c.getInt(5)==0)
+                        i2.setText("After Food");
+                    else
+                        i2.setText("Before Food");
                     switch (j)
                     {
                         case 1:j1.setImageResource(R.drawable.cap);break;
@@ -83,7 +76,10 @@ public class DinnerActivity extends AppCompatActivity {
                         case 3:j1.setImageResource(R.drawable.syrup);break;
                     }break;}
                 case 1 : {i3.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i4.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    if(c.getInt(5)==0)
+                        i4.setText("After Food");
+                    else
+                        i4.setText("Before Food");
                     switch (j)
                     {
                         case 1:j2.setImageResource(R.drawable.cap);break;
@@ -91,7 +87,10 @@ public class DinnerActivity extends AppCompatActivity {
                         case 3:j2.setImageResource(R.drawable.syrup);break;
                     }break;}
                 case 3 :{ i5.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i6.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    if(c.getInt(5)==0)
+                        i6.setText("After Food");
+                    else
+                        i6.setText("Before Food");
                     switch (j)
                     {
                         case 1:j3.setImageResource(R.drawable.cap);break;
@@ -99,7 +98,10 @@ public class DinnerActivity extends AppCompatActivity {
                         case 3:j3.setImageResource(R.drawable.syrup);break;
                     }break;}
                 case 4 :{ i7.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i8.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    if(c.getInt(5)==0)
+                        i8.setText("After Food");
+                    else
+                        i8.setText("Before Food");
                     switch (j)
                     {
                         case 1:j4.setImageResource(R.drawable.cap);break;
@@ -107,7 +109,10 @@ public class DinnerActivity extends AppCompatActivity {
                         case 3:j4.setImageResource(R.drawable.syrup);break;
                     }break;}
                 case 5 : {i9.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i10.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    if(c.getInt(5)==0)
+                        i10.setText("After Food");
+                    else
+                        i10.setText("Before Food");
                     switch (j)
                     {
                         case 1:j5.setImageResource(R.drawable.cap);break;
@@ -115,7 +120,10 @@ public class DinnerActivity extends AppCompatActivity {
                         case 3:j5.setImageResource(R.drawable.syrup);break;
                     }break;}
                 case 6 : {i11.setText(c.getString(0) + " (" +c.getString(1)+ ")");
-                    i12.setText(c.getString(2)+" & "+c.getString(3)+" & "+c.getString(4)+" & "+c.getString(5)+" & ");
+                    if(c.getInt(5)==0)
+                        i12.setText("After Food");
+                    else
+                        i12.setText("Before Food");
                     switch (j)
                     {
                         case 1:j6.setImageResource(R.drawable.cap);break;
