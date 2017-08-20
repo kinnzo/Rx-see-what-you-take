@@ -31,6 +31,6 @@
 - UI has been even more simplified both from the doctors and patients perspective 
 
 **Note**
-   ```
+    ```
    I am using a free WebSever 000webhost which has limit however, the people interested in carrying it forward may expand the size of the server according to their needs and customize the app. This is just a demo to show the future possibilities and how we can make use of technology. Enjoy using Rx 2.0 before my free hosting expires :P !
     ```
