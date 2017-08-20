@@ -22,3 +22,14 @@
  
  Over the long term, this app has the potential to replace the traditional system of paper based prescriptions.
  
+ **Features of the New 2.0 Version**
+ 
+- Simply uploads the medicines I enter on a Web Server
+- Helps the doctor in monitoring if the patient is playing around with the app 
+- Change in medicines made is immediately reflected back in database 
+- Reminder feature is still there along with the classification and beautiful UI
+- UI has been even more simplified both from the doctors and patients perspective 
+
+**Note**
+
+I am using a free WebSever 000webhost which has limit however, the people interested in carrying it forward may expand the size of the server according to their needs and customize the app. This is just a demo to show the future possibilities and how we can make use of technology. Enjoy using Rx 2.0 before my free hosting expires :P !
