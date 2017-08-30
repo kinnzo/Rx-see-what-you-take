@@ -32,7 +32,7 @@
 
 **Note**
   ```
-   I am using a free WebSever 000webhost which has limit however, 
+   I am using a free WebSever 000webhost which has some limit, however, 
    the people interested in carrying it forward may expand the size of 
    the server according to their needs and customize the app. This is 
    just a demo to show the future possibilities and how we can make use
